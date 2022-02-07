@@ -1,10 +1,6 @@
 # Beslenme
 
-EN
-
 A project, created for the ones who would like to calculate their calorie and get info about suggested meals.
-
-TR
 
 Kalorilerini ölçmek ve tavsiye edilen öğün hakkında bilgi almak isteyen kişiler için oluşturulmuş bir proje.
 
