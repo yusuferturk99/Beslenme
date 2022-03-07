@@ -1,24 +1,11 @@
-# beslenme
+First screenshot of the project
 
-## Project setup
-```
-npm install
-```
+![Screenshot_1.png](./Screenshot_1.png)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Second screenshot of the project
 
-### Compiles and minifies for production
-```
-npm run build
-```
+![Screenshot_2.png](./Screenshot_2.png)
 
-### Lints and fixes files
-```
-npm run lint
-```
+Third screenshot of the project
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![Screenshot_3.png](./Screenshot_3.png)
