@@ -1,173 +1,161 @@
 <template>
-  <div class="m-4">
-    <h3 class="mb-4 text-center">Erkekler için Kalori Hesaplama bölümüne hoş geldiniz! Aşağıdaki bilgileri doldurarak almanız gereken kaloriyi hesaplayabilirsiniz!</h3>
+  <div class="m-4" id="center">
+    <h3 class="mb-4">
+      Erkekler için Kalori Hesaplama bölümüne hoş geldiniz! Aşağıdaki bilgileri
+      doldurarak almanız gereken kaloriyi hesaplayabilirsiniz!
+    </h3>
     <p>
-      Yag Orani Hesaplama : Kalorinizi hesaplamadan önce yag oraninizi hesaplamamiz gerekiyor.
-      Aşağıdaki araçtan yağ oranınızı basitçe hesaplayabilirsiniz.
+      Yag Orani Hesaplama : Kalorinizi hesaplamadan önce yag oraninizi
+      hesaplamamiz gerekiyor. Aşağıdaki araçtan yağ oranınızı basitçe
+      hesaplayabilirsiniz.
     </p>
     <br />
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
+    <b-row>
       <b-col>
-        <b-input-group class="">
-          <label class="">Yaş</label>
-        </b-input-group>
-      </b-col>
+          <label class="">Yaşınız</label>
+        </b-col>
       <b-col>
         <b-form-input type="number" v-model="age"></b-form-input>
       </b-col>
     </b-row>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
+    <b-row>
       <b-col>
-        <b-input-group class="">
-          <label class="">Kilo</label>
-        </b-input-group>
+          <label class="">Kilonuz</label>
       </b-col>
       <b-col>
         <b-form-input type="number" v-model="weight"></b-form-input>
       </b-col>
     </b-row>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
+    <b-row>
       <b-col>
-        <b-input-group class="">
-          <label class="">Boy (cm)*</label>
-        </b-input-group>
+          <label class="">Boyunuz (cm)*</label>
       </b-col>
       <b-col>
         <b-form-input type="number" v-model="height"></b-form-input>
       </b-col>
     </b-row>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
+    <b-row>
         <b-col>
-          <b-input-group class="">
-            <label class="">Yag Orani (%)</label>
-          </b-input-group>
+            <label class="">Yağ Oranınız (%)</label>
+        </b-col>
+          <b-col>
+            <b-form-input type="number" v-model="calculateFat" disabled></b-form-input>
+          </b-col>
+    </b-row>
+    <p>Eğer ki yağ oranınızı biliyorsanız direkt kilo ve yağ oranı bilgilerinizi girerek işleminize devam edebilirsiniz.</p>
+    <b-row>
+        <b-col>
+          <label class="">Kilonuz</label>
         </b-col>
         <b-col>
-          <b-form-input type="number" v-model="showYag" disabled></b-form-input>
+        <b-form-input type="number"></b-form-input>
         </b-col>
     </b-row>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mt-3 mb-3">
-        <b-col>
-          <b-input-group class="">
-            <label class="">Kilonuz</label>
-          </b-input-group>
+        <b-row>
+          <b-col>
+          <label class="">Yağ Oranınız (%)</label>
         </b-col>
         <b-col>
-          <b-form-input type="number" ></b-form-input>
+        <b-form-input type="number" v-model="calculateFat"></b-form-input>
         </b-col>
-    </b-row>
-    <br>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
-        <b-col>
-          <b-input-group class="">
-            <label class="">Yag Oraniniz (%)</label>
-          </b-input-group>
-        </b-col>
-        <b-col>
-          <b-form-input type="number" v-model="showYag" disabled></b-form-input>
-        </b-col>
-    </b-row>
+        </b-row>
     <br />
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
-      <b-col>
-    <b-form-group
-      label="Lütfen Durumunuza Uyan Seçeneği İşaretleyin : "
-      v-slot="{ ariaDescribedby }"
-      class="b-form-group"
-    >
-      <b-form-radio
-        :aria-describedby="ariaDescribedby"
-        name="some-radios"
-        value="Hareketsiz"
-        v-model="Durum"
-        >Hareketsiz</b-form-radio
-      >
-      <b-form-radio
-        :aria-describedby="ariaDescribedby"
-        name="some-radios"
-        value="Biraz"
-        v-model="Durum"
-        >Biraz Aktif</b-form-radio
-      >
-      <b-form-radio
-        :aria-describedby="ariaDescribedby"
-        name="some-radios"
-        value="HareketsizAntrenman"
-        v-model="Durum"
-        >Hareketsiz is, Haftada 3-4 gün antrenman</b-form-radio
-      >
-      <b-form-radio
-        :aria-describedby="ariaDescribedby"
-        name="some-radios"
-        value="Ortalamais"
-        v-model="Durum"
-        >Ortalama is, Haftada 5-7 gün antrenman</b-form-radio
-      >
-      <b-form-radio
-        :aria-describedby="ariaDescribedby"
-        name="some-radios"
-        value="Profesyonel"
-        v-model="Durum"
-        >Yogun is, Profesyonel Seviyede Antrenman</b-form-radio
-      >
-    </b-form-group>
-    </b-col>
-    </b-row>
+        <b-form-group
+          label="Lütfen Durumunuza Uyan Seçeneği İşaretleyin : "
+          v-slot="{ ariaDescribedby }"
+          class="b-form-group"
+        >
+          <b-form-radio
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="Hareketsiz"
+            v-model="Durum"
+            >Hareketsiz</b-form-radio
+          >
+          <b-form-radio
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="Biraz"
+            v-model="Durum"
+            >Biraz Aktif</b-form-radio
+          >
+          <b-form-radio
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="HareketsizAntrenman"
+            v-model="Durum"
+            >Haftada 3-4 gün antrenman</b-form-radio
+          >
+          <b-form-radio
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="Ortalamais"
+            v-model="Durum"
+            >Haftada 5-7 gün antrenman</b-form-radio
+          >
+          <b-form-radio
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="Profesyonel"
+            v-model="Durum"
+            >Profesyonel Seviyede Antrenman</b-form-radio
+          >
+        </b-form-group>
     <br /><br />
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
-        <b-col>
-          <b-input-group class="">
-            <label class="">BMR (Asla uzun süre bu miktarin altinda kalmayin!)</label>
-          </b-input-group>
+        <b-row>
+          <b-col>
+            <label class="">BMR (Asla uzun süre bu miktarın altında kalmayın!)</label>
+            </b-col>
+            <b-col>
+            <b-form-input v-model="calculateBMR" disabled></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+          <label class="">Günlük Kalori İhtiyacınız (Bu miktar kilonuzu korur, amacınıza göre artırıp azaltabilirsiniz)</label>
+          </b-col>
+          <b-col>
+            <b-form-input v-model="showNormal" disabled></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <label class="">Kilo Verme Baslangıç Kalori</label>
+          </b-col>
+          <b-col>
+            <b-form-input v-model="showDefinasyon" disabled></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+          <label class="">Kilo Alma Baslangıç Kalori</label>
+          </b-col>
+          <b-col>
+        <b-form-input v-model="showBulk" disabled></b-form-input>
         </b-col>
-        <b-col>
-          <b-form-input v-model="showBMR" disabled></b-form-input>
-        </b-col>
+        </b-row>
+    <br /><br />
+    <b-row>
+      <b-col>
+        <label class="">Sayın Kullanıcımız, size tavsiye öğünümüz şu şekildedir :</label>
+      </b-col>
+      <b-col>
+        <b-form-input style="" v-model="showMeal" disabled></b-form-input>
+      </b-col>
     </b-row>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
-        <b-col>
-          <b-input-group class="">
-            <label class="">Günlük Kalori Ihtiyaciniz (Bu miktar kilonuzu korur, amaciniza göre
-        artirip azaltabilirsiniz)</label>
-          </b-input-group>
-        </b-col>
-        <b-col>
-          <b-form-input v-model="showNormal" disabled></b-form-input>
-        </b-col>
-    </b-row>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
-        <b-col>
-          <b-input-group class="">
-            <label class="">Kilo Verme Baslangic Kalori</label>
-          </b-input-group>
-        </b-col>
-        <b-col>
-          <b-form-input v-model="showDefinasyon" disabled></b-form-input>
-        </b-col>
-    </b-row>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
-        <b-col>
-          <b-input-group class="">
-            <label class="">Kilo Alma Baslangic Kalori</label>
-          </b-input-group>
-        </b-col>
-        <b-col>
-          <b-form-input v-model="showBulk" disabled></b-form-input>
-        </b-col>
-    </b-row>
-    <br><br>
-    <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="3" class="mb-4">
-        <b-col>
-          <b-input-group class="">
-            <label class="">Sayın Kullanıcımız, size tavsiye öğünümüz şu şekildedir : </label>
-          </b-input-group>
-        </b-col>
-        <b-col>
-          <b-form-input v-model="showOgun" disabled></b-form-input>
-        </b-col>
-    </b-row>
-    <span v-if="$store.state.loggedIn = false"></span>
-    <h5 v-else>Tavsiye öğün için bilgi almak istiyorsanız <router-link to="/kayitol">kayıt olun</router-link> veya <router-link to="/girisyap">giriş yapın</router-link></h5>
+    <div v-if="($store.state.loggedIn = true)">
+      <p>Kalori ihtiyacı bilgilerinizi göndererek bilgilerinizi saklayabilir ve
+        profilinizde görüntüleyebilirsiniz :</p>
+      <b-button pill variant="outline-success" v-on:click.prevent="post"
+      >Gönder</b-button>
+    </div>
+    <div v-else>
+      <h5>
+        Tavsiye öğün için bilgi almak istiyorsanız
+        <router-link to="/kayitol">kayıt olun</router-link> veya
+        <router-link to="/girisyap">giriş yapın</router-link>
+      </h5>
+    </div>
   </div>
 </template>
 
@@ -181,118 +169,215 @@ export default {
       Durum: "Seçilmedi",
     };
   },
+  methods: {
+    post() {
+      const Kalori = {
+        showNormal: this.showNormal,
+        showDefinasyon: this.showDefinasyon,
+        showBulk: this.showBulk,
+        showMeal: this.showMeal,
+      }
+      this.$http
+        .post(
+          "https://beslenme-70322-default-rtdb.firebaseio.com/users.json",
+          Kalori
+        )
+        .then(function (data) {
+          console.log(data);
+        });
+    },
+  },
   computed: {
-    showYag(){
-      return ((1.20 * (Number(this.weight) / ((Number(this.height)/100) * (Number(this.height)/100)))) + (0.23 * Number(this.age))) - 16.2
-      },
-    showLBM () {
-      return ((100 - this.showYag) / 100) * Number(this.weight)
+    // KaloriData () {
+    //   return this.$store.getters.SET_KALORI
+    // },
+    calculateFat() {
+      return (
+        1.2 *
+          (Number(this.weight) /
+            ((Number(this.height) / 100) * (Number(this.height) / 100))) +
+        0.23 * Number(this.age) -
+        16.2
+      );
     },
-    showBMR () {
-      return 370 + (21.6 * this.showLBM)
+    calculateLBM() {
+      return ((100 - this.calculateFat) / 100) * Number(this.weight);
     },
-    showNormal () {
+    calculateBMR() {
+      return 370 + 21.6 * this.calculateLBM;
+    },
+    showNormal() {
       if (this.Durum == "Seçilmedi") {
-        return this.showBMR
+        return this.calculateBMR;
       } else if (this.Durum == "Hareketsiz") {
-        return this.showBMR * 1.20
+        return this.calculateBMR * 1.2;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showBMR
+        return this.calculateBMR;
       } else if (this.Durum == "Biraz") {
-        return this.showBMR * 1.35
+        return this.calculateBMR * 1.35;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showBMR
+        return this.calculateBMR;
       } else if (this.Durum == "HareketsizAntrenman") {
-        return this.showBMR * 1.55
+        return this.calculateBMR * 1.55;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showBMR
+        return this.calculateBMR;
       } else if (this.Durum == "Ortalamais") {
-        return this.showBMR * 1.72
+        return this.calculateBMR * 1.72;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showBMR
+        return this.calculateBMR;
       } else if (this.Durum == "Profesyonel") {
-        return this.showBMR * 1.90
+        return this.calculateBMR * 1.9;
       } else {
-        return ""
+        return "";
       }
     },
-    showBulk () {
+    showBulk() {
       if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "Hareketsiz") {
-        return this.showNormal * 1.10
+        return this.showNormal * 1.1;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "Biraz") {
-        return this.showNormal * 1.10
+        return this.showNormal * 1.1;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "HareketsizAntrenman") {
-        return this.showNormal * 1.10
+        return this.showNormal * 1.1;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "Ortalamais") {
-        return this.showNormal * 1.10
+        return this.showNormal * 1.1;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "Profesyonel") {
-        return this.showNormal * 1.10
+        return this.showNormal * 1.1;
       } else {
-        return ""
+        return "";
       }
     },
-    showDefinasyon () {
+    showDefinasyon() {
       if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "Hareketsiz") {
-        return this.showNormal / 1.20
+        return this.showNormal / 1.2;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "Biraz") {
-        return this.showNormal / 1.20
+        return this.showNormal / 1.2;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "HareketsizAntrenman") {
-        return this.showNormal / 1.20
+        return this.showNormal / 1.2;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "Ortalamais") {
-        return this.showNormal / 1.20
+        return this.showNormal / 1.2;
       } else if (this.Durum == "Seçilmedi") {
-        return this.showNormal
+        return this.showNormal;
       } else if (this.Durum == "Profesyonel") {
-        return this.showNormal / 1.20
+        return this.showNormal / 1.2;
       } else {
-        return ""
+        return "";
       }
     },
-    showOgun () {
-      if (this.age > 18 && this.age < 20 && this.showYag > 2.0 && this.showYag < 6.1 ) {
-        return "Vücut yağ oranınız düşük. Yağ oranınızı arttırmak için kalorisi yüksek besinler almaya başlayın. Bunun için kırmızı et, yulaf ezmesi, fındık, fıstık, yulaf barı gibi besinler tüketebilirsiniz."
-      } else if (this.age > 18 && this.age < 20 && this.showYag >= 6.1 && this.showYag < 14.2 ) {
-        return "Vücut yağ oranınız ideal. Beslenmenize normal bir şekilde devam edebilirsiniz."
-      } else if (this.age > 18 && this.age < 20 && this.showYag >= 14.3 && this.showYag < 20.1 ) {
-        return "Vücut yağ oranınız ortalama. Beslenmenize normal bir şekilde devam edebilirsiniz ancak kalorisi yüksek besin tüketiminden kaçının. Aksi takdirde ortalamanın üstü kısmına girebilirsiniz. Bunun için öğünlerinizdeki yüksek kalorili besinleri salata veya bulgur ile değiştirebilirsiniz."
-      } else if (this.age > 18 && this.age < 20 && this.showYag >= 20.2) {
-        return "Vücut yağ oranınız ortalamanın üstünde. Öğünlerinizdeki yüksek kalorili besinleri salata veya bulgur ile değiştirmeniz gerek."
-      } else if (this.age > 21 && this.age < 25 && this.showYag > 2.5 && this.showYag < 7.2 ) {
-        return "Vücut yağ oranınız düşük. Yağ oranınızı arttırmak için kalorisi yüksek besinler almaya başlayın. Bunun için kırmızı et, yulaf ezmesi, fındık, fıstık, yulaf barı gibi besinler tüketebilirsiniz."
-      } else if (this.age > 21 && this.age < 25 && this.showYag >= 7.3 && this.showYag < 15.3 ) {
-        return "Vücut yağ oranınız ideal. Beslenmenize normal bir şekilde devam edebilirsiniz."
-      } else if (this.age > 21 && this.age < 25 && this.showYag >= 15.4 && this.showYag < 22.2 ) {
-        return "Vücut yağ oranınız ortalama. Beslenmenize normal bir şekilde devam edebilirsiniz ancak kalorisi yüksek besin tüketiminden kaçının. Aksi takdirde ortalamanın üstü kısmına girebilirsiniz. Bunun için öğünlerinizdeki yüksek kalorili besinleri salata veya bulgur ile değiştirebilirsiniz."
-      } else if (this.age > 21 && this.age < 25 && this.showYag >= 22.3) {
-        return "Vücut yağ oranınız ortalamanın üstünde. Öğünlerinizdeki yüksek kalorili besinleri salata veya bulgur ile değiştirmeniz gerek."
-      } else if (this.age > 26 && this.age < 30 && this.showYag >= 3.5 && this.showYag < 10.5 ) {
-        return "Vücut yağ oranınız düşük. Yağ oranınızı arttırmak için kalorisi yüksek besinler almaya başlayın. Bunun için kırmızı et, yulaf ezmesi, fındık, fıstık, yulaf barı gibi besinler tüketebilirsiniz."
-      } else  {
-        return "Hesaplanıyor..."
+    showMeal() {
+      if (
+        this.age > 18 &&
+        this.age < 20 &&
+        this.calculateFat > 2.0 &&
+        this.calculateFat < 6.1
+      ) {
+        return "Vücut yağ oranınız düşük. Yağ oranınızı arttırmak için kalorisi yüksek besinler almaya başlayın. Bunun için kırmızı et, yulaf ezmesi, fındık, fıstık, yulaf barı gibi besinler tüketebilirsiniz.";
+      } else if (
+        this.age > 18 &&
+        this.age < 20 &&
+        this.calculateFat >= 6.1 &&
+        this.calculateFat < 14.2
+      ) {
+        return "Vücut yağ oranınız ideal. Beslenmenize normal bir şekilde devam edebilirsiniz.";
+      } else if (
+        this.age > 18 &&
+        this.age < 20 &&
+        this.calculateFat >= 14.3 &&
+        this.calculateFat < 20.1
+      ) {
+        return "Vücut yağ oranınız ortalama. Beslenmenize normal bir şekilde devam edebilirsiniz ancak kalorisi yüksek besin tüketiminden kaçının. Aksi takdirde ortalamanın üstü kısmına girebilirsiniz. Bunun için öğünlerinizdeki yüksek kalorili besinleri salata veya bulgur ile değiştirebilirsiniz.";
+      } else if (this.age > 18 && this.age < 20 && this.calculateFat >= 20.2) {
+        return "Vücut yağ oranınız ortalamanın üstünde. Öğünlerinizdeki yüksek kalorili besinleri salata veya bulgur ile değiştirmeniz gerek.";
+      } else if (
+        this.age > 21 &&
+        this.age < 25 &&
+        this.calculateFat > 2.5 &&
+        this.calculateFat < 7.2
+      ) {
+        return "Vücut yağ oranınız düşük. Yağ oranınızı arttırmak için kalorisi yüksek besinler almaya başlayın. Bunun için kırmızı et, yulaf ezmesi, fındık, fıstık, yulaf barı gibi besinler tüketebilirsiniz.";
+      } else if (
+        this.age > 21 &&
+        this.age < 25 &&
+        this.calculateFat >= 7.3 &&
+        this.calculateFat < 15.3
+      ) {
+        return "Vücut yağ oranınız ideal. Beslenmenize normal bir şekilde devam edebilirsiniz.";
+      } else if (
+        this.age > 21 &&
+        this.age < 25 &&
+        this.calculateFat >= 15.4 &&
+        this.calculateFat < 22.2
+      ) {
+        return "Vücut yağ oranınız ortalama. Beslenmenize normal bir şekilde devam edebilirsiniz ancak kalorisi yüksek besin tüketiminden kaçının. Aksi takdirde ortalamanın üstü kısmına girebilirsiniz. Bunun için öğünlerinizdeki yüksek kalorili besinleri salata veya bulgur ile değiştirebilirsiniz.";
+      } else if (this.age > 21 && this.age < 25 && this.calculateFat >= 22.3) {
+        return "Vücut yağ oranınız ortalamanın üstünde. Öğünlerinizdeki yüksek kalorili besinleri salata veya bulgur ile değiştirmeniz gerek.";
+      } else if (
+        this.age > 26 &&
+        this.age < 30 &&
+        this.calculateFat >= 3.5 &&
+        this.calculateFat < 10.5
+      ) {
+        return "Vücut yağ oranınız düşük. Yağ oranınızı arttırmak için kalorisi yüksek besinler almaya başlayın. Bunun için kırmızı et, yulaf ezmesi, fındık, fıstık, yulaf barı gibi besinler tüketebilirsiniz.";
+      } else {
+        return "Hesaplanıyor...";
       }
-    }
     },
-  }
+  },
+};
 </script>
 
 <style scoped>
-
+@media screen and (min-width: 100px) and (max-width: 500px) {
+  #center{
+  padding-left: 3%;
+  padding-right: 3%;
+  text-align: center;
+}
+}
+@media screen and (min-width: 501px) and (max-width: 1000px) {
+  #center{
+  padding-left: 6%;
+  padding-right: 6%;
+  text-align: center;
+}
+}
+@media screen and (min-width: 1001px) and (max-width: 2000px) {
+  #center{
+  padding-left: 15%;
+  padding-right: 15%;
+  text-align: center;
+}
+}
+@media screen and (min-width: 0px) and (max-width: 501px) {
+  .row{
+  text-center: center;
+  margin-bottom: 10px;
+  }
+}
+@media screen and (min-width: 501px) and (max-width: 2000px) {
+  .form-control{
+  width: 50%;
+  }
+  .row{
+  text-center: center;
+  margin-bottom: 10px;
+  }
+}
 </style>
